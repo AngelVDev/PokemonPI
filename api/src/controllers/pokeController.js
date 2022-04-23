@@ -1,12 +1,12 @@
-//https://pokeapi.co/api/v2/pokemon/{id}
 const axios = require ('axios');
-const { Pokemon, Type } = require('../db');
+const { Pokemon, Type } = require ('../db')
 
 const pokeApi = async () =>{
+const pokeUrl = async () => {
 for (let i = 1; i < 151; i++){
     axios(`https://pokeapi.co/api/v2/pokemon/${i}`)
-}
-const allApi = pokeApi.data.map((poke) => ({
+}}
+const allApi = pokeUrl.data.map((poke) => ({
     id: poke.id,
     name: poke.forms.name,
     image: poke.sprites.official-artwork.front_default,
@@ -26,8 +26,10 @@ const pokeDB = async () => {
 }
 
 const allInfo = async () => {
-    const api = await allApi;
-    const db = await pokeDB;
+    const api = await pokeApi();
+    const db = await pokeDB();
     const all = api.concat(db);
     return all
 }
+
+module.exports= {allInfo}
