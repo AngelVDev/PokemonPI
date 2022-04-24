@@ -22,6 +22,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    DEFENSE:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     SPEED:{
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -1,23 +1,47 @@
-const { Router } = require('express');
-const { allInfo } = require('../controllers/pokeController.js');
+const { Router } = require("express");
+const {
+  allInfo,
+  pokeApi,
+  pokeUrl,
+} = require("../controllers/pokeController.js");
 const router = Router();
 
-router.get('/pokemons', async (req, res) =>{
-    try{
-    const {name} = req.query;
+router.get("/pokemons", async (req, res) => {
+  try {
+    const { name } = req.query;
     const info = await allInfo();
+    console.log(name);
     if (name) {
-        const pokeName = info.filter((el) =>
+      const pokeName = info.filter((el) =>
         el.name.toLowerCase().includes(name.toLowerCase())
       );
-      pokeName.length < 16
-      ? res.status(200).json(pokeName)
-      : res.status(404).send("POKEMON NOT FOUND");
-    }else{
-        res.status(200).json(info)
+      pokeName
+        ? res.status(200).json(pokeName)
+        : res.status(404).json("NOT FOUND");
+    } else {
+      res.status(200).json(info);
     }
-    } catch (err){
-        console.log(err)
+  } catch (err) {
+    res.send(err);
+  }
+});
+router.get("/pokemons/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const info = await allInfo();
+    if (id.length > 151) {
+      const pokeInDB = await Pokemon.findOne({ where: { id }, include: Type });
+      !pokeInDB
+        ? res.status(404).send("Not valid ID")
+        : res.status(200).json(pokeInDB);
+    } else {
+      const pokeId = info.filter((el) => el.id === id);
+      return pokeId.length
+        ? res.status(200).json(pokeId)
+        : res.status(404).send("Not found");
     }
-})
-module.exports= router;
+  } catch (err) {
+    console.log(err);
+  }
+});
+module.exports = router;
