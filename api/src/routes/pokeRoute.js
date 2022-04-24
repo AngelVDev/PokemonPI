@@ -1,9 +1,5 @@
 const { Router } = require("express");
-const {
-  allInfo,
-  pokeApi,
-  pokeUrl,
-} = require("../controllers/pokeController.js");
+const { allInfo } = require("../controllers/pokeController.js");
 const router = Router();
 
 router.get("/pokemons", async (req, res) => {
