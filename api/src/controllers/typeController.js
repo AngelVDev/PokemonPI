@@ -1,17 +1,19 @@
-const axios = require ('axios');
-const { Pokemon, Type } = require('../db');
+const axios = require("axios");
+const { Pokemon, Type } = require("../db");
 
 const typeApi = async () => {
-    const urlApi = axios('https://pokeapi.co/api/v2/type')
-    const allInfo = urlApi.data.results.map(el => el.name)
-    return allInfo
-}
-const toDB = async() =>{
-    const api = await typeApi()
-    if (!api.length){
-    return db = await Type.bulkCreate(api)
-    } else {
-     return  Type.findAll({name:name})
-    }
-}
-module.exports = {toDB}
+  const urlApi = await axios.get("https://pokeapi.co/api/v2/type");
+  const apiResults = urlApi.data.results;
+  const typeData = [];
+
+  for (let i = 0; i < apiResults.length; i++) {
+    const secGet = await axios.get(apiResults[i].url);
+    const typen = secGet.data;
+    typeData.push({
+      id: typen.id,
+      name: typen.name,
+    });
+  }
+  return typeData;
+};
+module.exports = { typeApi };
