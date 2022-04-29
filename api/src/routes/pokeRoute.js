@@ -25,16 +25,14 @@ router.get("/pokemons/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const info = await allInfo();
-    if (id.length > 151) {
+    if (id > 20) {
       const pokeInDB = await Pokemon.findOne({ where: { id }, include: Type });
       !pokeInDB
         ? res.status(404).send("Not valid ID")
         : res.status(200).json(pokeInDB);
     } else {
-      const pokeId = info.filter((el) => el.id === id);
-      return pokeId.length
-        ? res.status(200).json(pokeId)
-        : res.status(404).send("Not found");
+      const pokeId = info.find((element) => `${element.id}` === id);
+      pokeId ? res.status(200).json(pokeId) : res.status(404).send("Not found");
     }
   } catch (err) {
     console.log(err);
