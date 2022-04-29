@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { allInfo } = require("../controllers/pokeController.js");
+const { Pokemon, Type } = require("../db");
 const router = Router();
 
 router.get("/pokemons", async (req, res) => {
@@ -36,6 +37,26 @@ router.get("/pokemons/:id", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+  }
+});
+router.post("/pokemons", async (req, res) => {
+  const { name, HP, attack, defense, speed, height, weight, types } = req.body;
+  try {
+    const pokeNew = await Pokemon.create({
+      name,
+      HP,
+      attack,
+      height,
+      weight,
+      defense,
+      speed,
+      types,
+    });
+    const typeDb = await Type.findAll({ where: { name: name } });
+    pokeNew.addType(typeDb);
+    res.status(201).json(pokeNew);
+  } catch (error) {
+    console.log(error);
   }
 });
 module.exports = router;
