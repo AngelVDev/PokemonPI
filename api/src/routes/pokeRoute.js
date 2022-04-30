@@ -7,7 +7,7 @@ router.get("/pokemons", async (req, res) => {
   try {
     const { name } = req.query;
     const info = await allInfo();
-    console.log(name);
+    console.log("This is name", name);
     if (name) {
       const pokeName = info.filter((el) =>
         el.name.toLowerCase().includes(name.toLowerCase())

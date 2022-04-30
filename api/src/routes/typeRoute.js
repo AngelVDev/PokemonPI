@@ -11,7 +11,6 @@ router.get("/types", async (req, res) => {
       await Type.bulkCreate(types);
       res.status(201).json("Createds");
     } else {
-      console.log(allTypes.length);
       res.status(200).json(allTypes);
     }
   } catch (err) {
