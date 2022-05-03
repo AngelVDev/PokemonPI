@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getPokemons, getTypes } from '../Redux/actions';
 import Cards from './Cards'
 import Loader from './Loader'
+import Searchbar from './Searchbar';
 
 const Home = () => {
     const pokes = useSelector((state) => state.allPokes);
@@ -18,6 +19,7 @@ if(pokes){
   return (
     <div>I'm home
         <div>
+            <Searchbar/>
             {pokes && pokes?.map((pk)=>{
                 return (
                     <Link to={'/home/'+ pk.id}>
