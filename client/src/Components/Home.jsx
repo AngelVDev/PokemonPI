@@ -3,12 +3,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Link } from "react-router-dom";
 import { getPokemons, getTypes } from '../Redux/actions';
 import Cards from './Cards'
+import Filters from './Filters';
 import Loader from './Loader'
 import Searchbar from './Searchbar';
 
 const Home = () => {
     const pokes = useSelector((state) => state.allPokes);
-    const types = useSelector((state)=> state.types);
+    // eslint-disable-next-line no-unused-vars
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -18,8 +19,11 @@ const Home = () => {
 if(pokes){
   return (
     <div>I'm home
-        <div>
+        <nav>
             <Searchbar/>
+            <Filters/>
+        </nav>
+        <div>
             {pokes && pokes?.map((pk)=>{
                 return (
                     <Link to={'/home/'+ pk.id}>
