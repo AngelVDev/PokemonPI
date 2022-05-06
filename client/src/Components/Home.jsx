@@ -22,6 +22,11 @@ if(pokes){
         <nav>
             <Searchbar/>
             <Filters/>
+            <button>
+                <Link to={"/create"}>
+                    CREATE POKE
+                </Link>
+            </button>
         </nav>
         <div>
             {pokes && pokes?.map((pk)=>{

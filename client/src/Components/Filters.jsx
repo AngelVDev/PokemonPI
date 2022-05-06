@@ -31,10 +31,10 @@ const Filters = () => {
         sorted = pokes?.sort((a, b) => (a.name > b.name) ? 1 : -1)
       }
       //Sort by ATK
-      if (order === 'DSC') {
+      if (order === 'LOW') {
         var sortedATK = pokes?.sort((a, b) => (a.attack < b.attack) ? 1 : -1)
       }
-      if (order === 'ASC') {
+      if (order === 'HI') {
         sortedATK = pokes?.sort((a, b) => (a.attack > b.attack) ? 1 : -1)
       }
       //Filter by type
@@ -63,8 +63,8 @@ const Filters = () => {
       </label>
       <label>Sort by ATK 
       <select onChange={handleOrder} value={sortedATK}>
-          <option value="ASC">Low to hi</option>
-          <option value="DSC">Hi to low</option>
+          <option value="LOW">Low to hi</option>
+          <option value="HI">Hi to low</option>
       </select>
       </label>
       <label>Filter by type
