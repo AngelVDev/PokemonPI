@@ -24,7 +24,7 @@ function validateForms(input) {
   if (input.defense < 1 || input.defense > 999) {
     error.defense = "The value must be a number above 1 and below 1000";
   }
-  if (input.speed < 1 || input.speed < 999) {
+  if (input.speed < 1 || input.speed > 999) {
     error.speed = "The value must be a number above 1 and below 1000";
   }
   if (!input.types || input.types.length > 2 ) {
@@ -97,6 +97,7 @@ const Creator = () => {
             <label>
               Name:
               <input
+                name="name"
                 type="text"
                 value={input.name}
                 onChange={(e) => handleChange(e)}
