@@ -7,6 +7,7 @@ import Filters from "./Filters";
 import Loader from "./Loader";
 import Pagination from "./Pagination";
 import Searchbar from "./Searchbar";
+import "./Styles/Home.css";
 
 const Home = () => {
   const pokes = useSelector((state) => state.allPokes);
@@ -15,7 +16,7 @@ const Home = () => {
   /*<--Pagination-->*/
   const [currentPage, setCurrentPage] = useState(1);
   // eslint-disable-next-line no-unused-vars
-  const [pokesPerPage, setPokesPerPage] = useState(9);
+  const [pokesPerPage, setPokesPerPage] = useState(12);
   const indexOfLastPoke = currentPage * pokesPerPage;
   const indexOfFirstPoke = indexOfLastPoke - pokesPerPage;
   // eslint-disable-next-line no-unused-vars
@@ -23,6 +24,7 @@ const Home = () => {
   const PAGINATION = (pageNum) => {
     setCurrentPage(pageNum);
   };
+
   /*<--Pagination-->*/
   useEffect(() => {
     dispatch(getPokemons());
@@ -30,9 +32,9 @@ const Home = () => {
   }, [dispatch]);
   if (pokes) {
     return (
-      <div>
+      <div id="Primary">
         I'm home
-        <nav>
+        <nav className="Navi">
           <Searchbar />
           <Filters />
           <button>
@@ -45,6 +47,7 @@ const Home = () => {
               return (
                 <Link to={"/home/" + pk.id}>
                   <Cards
+                    id={pk.id}
                     name={pk.name}
                     image={pk.image}
                     types={pk.types}

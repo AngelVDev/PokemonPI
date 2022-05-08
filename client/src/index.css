@@ -8,6 +8,10 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New','Power Green',
     monospace;
+}
+@font-face {
+  font-family: 'Power Green'; 
+  src: url('C:\WINDOWS\FONTS\pkmnem.ttf');
 }
