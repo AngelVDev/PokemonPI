@@ -1,6 +1,10 @@
 .Navi{
     font-family: 'Power Green';
+    color: antiquewhite;
 }
 #Primary{
-    background-color: antiquewhite;
+    background-image: url('https://images6.alphacoders.com/641/641430.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: bottom;
 }
