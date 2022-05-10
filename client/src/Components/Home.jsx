@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getPokemons, getTypes } from "../Redux/actions";
 import Cards from "./Cards";
 import Filters from "./Filters";
@@ -21,6 +21,10 @@ const Home = () => {
   const indexOfFirstPoke = indexOfLastPoke - pokesPerPage;
   // eslint-disable-next-line no-unused-vars
   const currentPokes = pokes?.slice(indexOfFirstPoke, indexOfLastPoke);
+  console.log(pokes);
+  console.log(indexOfFirstPoke);
+  console.log(indexOfLastPoke);
+  console.log(currentPokes);
   const PAGINATION = (pageNum) => {
     setCurrentPage(pageNum);
   };
@@ -30,13 +34,14 @@ const Home = () => {
     dispatch(getPokemons());
     dispatch(getTypes());
   }, [dispatch]);
-  if (pokes) {
+  if (pokes.length) {
     return (
       <div id="Primary">
         I'm home
         <nav className="Navi">
           <Searchbar />
           <Filters />
+          <button>RESET</button>
           <button>
             <Link to={"/create"}>CREATE POKE</Link>
           </button>
