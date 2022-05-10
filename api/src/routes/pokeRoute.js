@@ -26,7 +26,7 @@ router.get("/pokemons/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const info = await allInfo();
-    if (id > 20) {
+    if (id > 40) {
       const pokeInDB = await Pokemon.findOne({ where: { id }, include: Type });
       !pokeInDB
         ? res.status(404).send("Not valid ID")
