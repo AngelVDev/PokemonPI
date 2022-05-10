@@ -6,7 +6,7 @@ import Loader from "./Loader";
 
 function validateForms(input) {
   let error = {};
-  if (input.name === null) {
+  if (!input.name) {
     error.name = "Name required";
   }
   if (input.HP < 1 || input.HP > 999) {
@@ -27,10 +27,10 @@ function validateForms(input) {
   if (input.speed < 1 || input.speed > 999) {
     error.speed = "The value must be a number above 1 and below 1000";
   }
-  if (!input.types || input.types.length > 2 ) {
+  if (!input.types || input.types.length > 2) {
     error.types = "Select less than two types and at least one type";
   }
-  return error
+  return error;
 }
 const Creator = () => {
   const dispatch = useDispatch();
@@ -48,18 +48,18 @@ const Creator = () => {
     speed: "",
     types: [],
   });
-  
+
   useEffect(() => {
     dispatch(getTypes());
   }, [dispatch]);
 
   function handleChange(e) {
-    setInput({...input,[e.target.name]: e.target.value,});
-    setError(validateForms({...input,[e.target.name]: e.target.value,}));
+    setInput({ ...input, [e.target.name]: e.target.value });
+    setError(validateForms({ ...input, [e.target.name]: e.target.value }));
   }
-  
+
   function handleSubmit(e) {
-    alert("WELL DONE");
+    !error ? alert("WELL DONE") : alert("OOPS");
     e.preventDefault(e);
     dispatch(createPoke(input));
     setInput({
@@ -102,7 +102,7 @@ const Creator = () => {
                 value={input.name}
                 onChange={(e) => handleChange(e)}
               />
-              {error.name && <p>{error.name} </p>}
+              {error.name && <p>{error.name}</p>}
             </label>
           </div>
           <div>
@@ -165,26 +165,29 @@ const Creator = () => {
               {error.defense && <p>{error.defense} </p>}
             </label>
           </div>
-          Types:
-          <select onChange={(e) => handleSelect(e)}>
-            {types?.map((el) => (
-              <option value={el.name}>{el.name}</option>
-            ))}
-          </select>
-          {error.types && <p>{error.types} </p>}
-          <ul>
-            {input.types?.map((el) => (
-              <div>
-                <button onClick={() => handleDelete(el)}>x</button>
-                <p>{el}</p>
-              </div>
-            ))}
-          </ul>
+          <label>
+            Types:
+            <select onChange={(e) => handleSelect(e)}>
+              <option value="">Types</option>
+              {types?.map((el) => (
+                <option value={el.name}>{el.name}</option>
+              ))}
+            </select>
+            <ul>
+              {input.types?.map((el) => (
+                <div>
+                  <button onClick={() => handleDelete(el)}>x</button>
+                  <p>{el}</p>
+                </div>
+              ))}
+            </ul>
+            {error.types && <p>{error.types} </p>}
+          </label>
           <button type="submit">CREATE</button>
-          <Link to="/home">
-            <button>RUN</button>
-          </Link>
         </form>
+        <Link to="/home">
+          <button>RUN</button>
+        </Link>
       </div>
     );
   } else {
