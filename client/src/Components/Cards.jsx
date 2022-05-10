@@ -1,7 +1,7 @@
 import React from "react";
 import "./Styles/Cards.css";
 
-function capitalize(string) {
+export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
