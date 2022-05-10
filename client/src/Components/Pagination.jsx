@@ -2,11 +2,13 @@ import React from "react";
 import "./Styles/Pagination.css";
 
 export default function Pagination({ pokes, pokesPerPage, pagination }) {
-  const pageNum = [];
+  let pageNum = [];
   for (let i = 1; i <= Math.ceil(pokes / pokesPerPage); i++) {
     pageNum.push(i);
   }
-
+  if (pokes === 1) {
+    return (pageNum = 0);
+  }
   return (
     <nav id="Pagination">
       <ul>

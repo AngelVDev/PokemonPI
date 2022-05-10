@@ -43,7 +43,7 @@ const Filters = () => {
   }
   //Filter by origin
   if (filtered === "DB") {
-    var srcPoke = pokes?.filter((el) => el.id.length > 3);
+    var srcPoke = pokes?.filter((el) => el.id.length > 2);
   }
   if (filtered === "API") {
     srcPoke = pokes;
