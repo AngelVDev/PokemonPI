@@ -36,6 +36,15 @@ export function getQPokes(name) {
     }
   };
 }
+export function getFiltered(payload) {
+  return async function (dispatch) {
+    return dispatch({
+      type: "GET_FILTERED",
+      payload: payload,
+    });
+  };
+}
+
 export function getDetails(id) {
   return async function (dispatch) {
     var json = await axios.get("http://localhost:3001/pokemons/" + id);
@@ -59,13 +68,41 @@ export let createPoke = (payload) => {
   };
 };
 
-// export function deleteById(id){
-//   return async function(dispatch){
-//     try{
-//       const json = await axios.get(`http://localhost:3001/${id}/delete`)
-//       return dispatch({ type: "DELETE_BY_ID", payload: json.data})
-//     }catch(err){
-//       console.log(err)
-//     }
-//     }
-// }
+export function orderByName(payload) {
+  return async (dispatch) => {
+    dispatch({
+      type: "SORT_POKENAME",
+      payload,
+    });
+  };
+}
+export function showCreated(payload) {
+  return (dispatch) => {
+    dispatch({
+      type: "FILTER_SOURCE",
+      payload,
+    });
+  };
+}
+export function filterByType(payload) {
+  return {
+    type: "FILTER_TYPES",
+    payload,
+  };
+}
+export function orderByAtk(payload) {
+  return {
+    type: "SORT_POKEATK",
+    payload,
+  };
+}
+export function deleteById(id) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`http://localhost:3001/${id}/delete`);
+      return dispatch({ type: "DELETE_BY_ID", payload: json.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
