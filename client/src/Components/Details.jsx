@@ -50,9 +50,11 @@ const Details = () => {
           </p>
           <p>
             <span id="typen">
-              {poke.id <= 40
-                ? poke.types.map((el) => el + " ")
-                : poke.types.map((el) => el.name + " ")}
+              {poke.id >= 40
+                ? poke.types.map((el) => el.name + " ").toUpperCase()
+                : poke.types[0].toUpperCase() +
+                  " " +
+                  poke?.types[1].toUpperCase()}
             </span>
           </p>
         </div>
