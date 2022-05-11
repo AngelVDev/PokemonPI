@@ -7,7 +7,7 @@ const Cards = ({ id, image, name, types }) => {
   return (
     <div id="container">
       <div id="info">
-        <h1>#{id > 40 ? "DB" : id}</h1>
+        <h1>#{id.length > 3 ? "DB" : id}</h1>
         <h2>{name}</h2>
         <p>
           Types:{" "}
