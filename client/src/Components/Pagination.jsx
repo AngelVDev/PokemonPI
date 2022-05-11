@@ -6,7 +6,7 @@ export default function Pagination({ pokes, pokesPerPage, pagination }) {
   for (let i = 1; i <= Math.ceil(pokes / pokesPerPage); i++) {
     pageNum.push(i);
   }
-  if (pokes === 1) {
+  if (pokes <= 12) {
     return (pageNum = 0);
   }
   return (
