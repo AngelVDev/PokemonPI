@@ -1,19 +1,22 @@
 import React from "react";
 import "./Styles/Cards.css";
-
-export function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+export let missingno =
+  "https://static.wikia.nocookie.net/espokemon/images/4/41/Mimikyu.png";
 
 const Cards = ({ id, image, name, types }) => {
   return (
     <div id="container">
       <div id="info">
-        <h1>#{id}</h1>
-        <h2>{capitalize(name)}</h2>
-        <p>Types: {types?.map((el) => el + ";  ")}</p>
+        <h1>#{id > 40 ? "DB" : id}</h1>
+        <h2>{name}</h2>
+        <p>
+          Types:{" "}
+          {id <= 40
+            ? types.map((el) => el + "; ")
+            : types.map((el) => el.name + "; ")}
+        </p>
       </div>
-      <img src={image} alt="cardimgerror" />
+      <img src={image ? image : missingno} alt="cardimgerror" />
     </div>
   );
 };
