@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetails } from "../Redux/actions";
+import { missingno } from "./Cards";
 import Loader from "./Loader";
-import { capitalize } from "./Cards";
+// import { capitalize } from "./Cards";
 import "./Styles/Details.css";
 
 const Details = () => {
@@ -21,32 +22,43 @@ const Details = () => {
   if (poke) {
     return (
       <div id="CARD">
-        <p>{poke.id ? poke.id : "000"}</p>
-        <h2>{poke.name ? capitalize(poke.name) : "MISSINGNO"}</h2>
+        <p id="idP">ID:{poke.id ? poke.id : "000"}</p>
+        <h2 id="pkH2name">{poke.name ? poke.name : "MISSINGNO"}</h2>
         <img
-          src={
-            poke.image
-              ? poke.image
-              : "https://www.nintenderos.com/wp-content/uploads/2021/11/C3CzizLXgAA90br.jpg"
-          }
+          id="pkPortrait"
+          src={poke.image ? poke.image : missingno}
           alt="WILD MISSINGNO"
         />
-        <div>
-          <p alt="HP">Health points:{poke.HP ? poke.HP : "178"}</p>
-          <p alt="ATK">Attack: {poke.attack ? poke.attack : "19"} </p>
-          <p alt="DEF">Defense:{poke.defense ? poke.defense : "11"} </p>
-          <p alt="SPD">Speed:{poke.speed ? poke.speed : "0"} </p>
-          <p alt="Height">Height:{poke.height ? poke.height : "3.04"}</p>
-          <p alt="Weight">Weight:{poke.weight ? poke.weight : "1590.8"}</p>
+        <div id="pokeStats">
+          <p id="pkHP" alt="HP">
+            Health points: {poke.HP ? poke.HP : "178"}
+          </p>
+          <p id="pkATK" alt="ATK">
+            Attack: {poke.attack ? poke.attack : "19"}{" "}
+          </p>
+          <p id="pkDEF" alt="DEF">
+            Defense: {poke.defense ? poke.defense : "11"}{" "}
+          </p>
+          <p id="pkSPD" alt="SPD">
+            Speed: {poke.speed ? poke.speed : "0"}{" "}
+          </p>
+          <p id="pkH" alt="Height">
+            Height: {poke.height ? poke.height : "3.04"}
+          </p>
+          <p id="pkW" alt="Weight">
+            Weight: {poke.weight ? poke.weight : "1590.8"}
+          </p>
           <p>
-            <span>
-              {!poke.types
-                ? "Not defined"
-                : poke.types?.map((el) => capitalize(el) + " ")}
+            <span id="typen">
+              {poke.id <= 40
+                ? poke.types.map((el) => el + " ")
+                : poke.types.map((el) => el.name + " ")}
             </span>
           </p>
         </div>
-        <button onClick={handleClick}>RUN</button>
+        <button id="RUN" onClick={handleClick}>
+          RUN
+        </button>
       </div>
     );
   } else {
