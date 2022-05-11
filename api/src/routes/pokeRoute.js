@@ -50,12 +50,13 @@ router.post("/pokemons", async (req, res) => {
       weight,
       defense,
       speed,
-      types,
     });
-    const typeDb = await Type.findAll({ where: { name: name } });
-    pokeNew.addType(typeDb);
+    const typeDb = await Type.findAll({ where: { name: types } });
+    await pokeNew.addType(typeDb);
+    console.log(typeDb);
     res.status(201).json(pokeNew);
   } catch (error) {
+    res.status(500).send(error);
     console.log(error);
   }
 });
