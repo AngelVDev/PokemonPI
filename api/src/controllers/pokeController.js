@@ -8,11 +8,13 @@ const pokeApi = async () => {
     const pokeData = [];
     const pokeUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/`);
     const urlP = await pokeUrl.data;
-    const pokesUrl = await urlP.results;
-    pokeData.push(await axios.get(pokesUrl));
-    // pokeData.push(await axios.get(urlP.next.data));
-    console.log("SOY POKEDATA", pokeData);
-    console.log(pokesUrl);
+    const pokesUrl = await urlP.results.map((el) => el.url);
+    const pokesNext = await axios.get(urlP.next);
+    const newPkUrl = await pokesNext.data.results.map((el) => el.url);
+    for (let i = 0; i < 20; i++) {
+      pokeData.push(axios.get(pokesUrl[i]));
+      pokeData.push(axios.get(newPkUrl[i]));
+    }
     const allPk = Promise.all(pokeData).then((pk) => {
       let pokeArray = pk.map((poke) => {
         return {
@@ -50,5 +52,4 @@ const allInfo = async () => {
   const all = api.concat(db);
   return all;
 };
-pokeApi();
 module.exports = { allInfo };
