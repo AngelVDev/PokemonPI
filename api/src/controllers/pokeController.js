@@ -1,17 +1,23 @@
 const axios = require("axios");
 const { Pokemon, Type } = require("../db");
-
 const pokeApi = async () => {
+  function capitalize(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
   try {
     const pokeData = [];
-    for (let i = 1; i < 41; i++) {
-      pokeData.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
-    }
+    const pokeUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/`);
+    const urlP = await pokeUrl.data;
+    const pokesUrl = await urlP.results;
+    pokeData.push(await axios.get(pokesUrl));
+    // pokeData.push(await axios.get(urlP.next.data));
+    console.log("SOY POKEDATA", pokeData);
+    console.log(pokesUrl);
     const allPk = Promise.all(pokeData).then((pk) => {
       let pokeArray = pk.map((poke) => {
         return {
           id: poke.data.id,
-          name: poke.data.name,
+          name: capitalize(poke.data.name),
           types: [
             poke.data.types[0].type.name,
             poke.data.types[1] ? poke.data.types[1].type.name : null,
@@ -41,8 +47,8 @@ const pokeDB = async () => {
 const allInfo = async () => {
   const api = await pokeApi();
   const db = await pokeDB();
-  const all = [...api, ...db];
+  const all = api.concat(db);
   return all;
 };
-
+pokeApi();
 module.exports = { allInfo };
