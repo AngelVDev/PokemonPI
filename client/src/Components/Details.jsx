@@ -22,7 +22,8 @@ const Details = () => {
   if (poke) {
     return (
       <div id="CARD">
-        <p id="idP">ID:{poke.id ? poke.id : "000"}</p>
+        {console.log(poke)}
+        <p id="idP">ID: {poke.id ? poke.id : "000"}</p>
         <h2 id="pkH2name">{poke.name ? poke.name : "MISSINGNO"}</h2>
         <img
           id="pkPortrait"
@@ -52,9 +53,7 @@ const Details = () => {
             <span id="typen">
               {poke.id >= 40
                 ? poke.types.map((el) => el.name + " ").toUpperCase()
-                : poke.types[0].toUpperCase() +
-                  " " +
-                  poke?.types[1].toUpperCase()}
+                : poke.types}
             </span>
           </p>
         </div>

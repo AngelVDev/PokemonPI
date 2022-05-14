@@ -1,73 +1,80 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getPokemons, getTypes } from "../Redux/actions";
+import {
+  filterByType,
+  getPokemons,
+  getTypes,
+  orderByAtk,
+  orderByName,
+  showCreated,
+} from "../Redux/actions";
 import { useDispatch } from "react-redux";
 
-const Filters = () => {
-  const pokes = useSelector((state) => state.allPokes);
+const Filters = ({ currentPage, setCurrentPage }) => {
   const types = useSelector((state) => state.types);
   const dispatch = useDispatch();
-  const [order, setOrder] = useState("");
-  const [filtered, setFiltered] = useState("");
+
   useEffect(() => {
     dispatch(getPokemons());
     dispatch(getTypes());
   }, [dispatch]);
+  const handleClear = (e) => {
+    e.preventDefault();
+    dispatch(getPokemons());
+  };
 
-  const handleOrder = (e) => {
-    setOrder(e.target.value);
-  };
-  const handleFilter = (e) => {
-    setFiltered(e.target.value);
-  };
   //Sort by name
-  if (order === "DSC") {
-    var sorted = pokes?.sort((a, b) => (a.name < b.name ? 1 : -1));
-  }
-  if (order === "ASC") {
-    sorted = pokes?.sort((a, b) => (a.name > b.name ? 1 : -1));
-  }
+  const handleName = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(orderByName(e.target.value));
+  };
+
   //Sort by ATK
-  if (order === "LOW") {
-    var sortedATK = pokes?.sort((a, b) => (a.attack < b.attack ? 1 : -1));
-  }
-  if (order === "HI") {
-    sortedATK = pokes?.sort((a, b) => (a.attack > b.attack ? 1 : -1));
-  }
+  const handleAtk = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(orderByAtk(e.target.value));
+  };
+
   //Filter by type
-  if (filtered !== "ALL") {
-    var product = pokes?.filter((el) => el.types.includes(filtered));
-  }
-  if (filtered === "ALL") {
-    product = pokes;
-  }
+  const handleSelectType = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(filterByType(e.target.value));
+  };
+
   //Filter by origin
-  if (filtered === "DB") {
-    var srcPoke = pokes?.filter((el) => el.id.length > 2);
-  }
-  if (filtered === "API") {
-    srcPoke = pokes;
-  }
+  const handleFilterSource = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(showCreated(e.target.value));
+  };
 
   return (
     <>
+      <button id="reset" onClick={(e) => handleClear(e)}>
+        RESET
+      </button>
       <label>
         Sort by name
-        <select onChange={handleOrder} value={sorted}>
+        <select className="sor" onChange={(e) => handleName(e)}>
+          <option value="">--</option>
           <option value="ASC">A to Z</option>
           <option value="DSC">Z to A</option>
         </select>
       </label>
       <label>
         Sort by ATK
-        <select onChange={handleOrder} value={sortedATK}>
+        <select className="sor" onChange={(e) => handleAtk(e)}>
+          <option value="">--</option>
           <option value="LOW">Low to hi</option>
           <option value="HI">Hi to low</option>
         </select>
       </label>
       <label>
         Filter by type
-        <select onChange={handleFilter} value={product}>
+        <select className="filt" onChange={(e) => handleSelectType(e)}>
           <option value="ALL">All</option>
           {types?.map((type) => {
             return <option key={type.id}>{type.name}</option>;
@@ -76,8 +83,8 @@ const Filters = () => {
       </label>
       <label>
         Filter by source
-        <select onChange={handleFilter} value={srcPoke}>
-          <option value="MIX">Mixed</option>
+        <select className="filt" onChange={(e) => handleFilterSource(e)}>
+          <option value="MIXED">Mixed</option>
           <option value="API">API</option>
           <option value="DB">Createds</option>
         </select>
