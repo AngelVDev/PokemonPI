@@ -3,39 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createPoke, getTypes } from "../Redux/actions";
 import Loader from "./Loader";
+import "./Styles/Creator.css";
 
 function validateForms(input) {
   let error = {};
   if (!input.name) {
     error.name = "Name required";
-  }
-  if (input.HP < 1 || input.HP > 999) {
+  } else if (input.HP < 1 || input.HP > 999) {
     error.HP = "HP must be above 1 and below 1000";
-  }
-  if (input.attack < 1 || input.attack > 999) {
+  } else if (input.attack < 1 || input.attack > 999) {
     error.attack = "The value must be a number above 1 and below 1000";
-  }
-  if (input.height < 1) {
+  } else if (input.height < 1) {
     error.height = "The value must be a number above 1";
-  }
-  if (input.weight < 1) {
+  } else if (input.weight < 1) {
     error.weight = "The value must be a number above 1";
-  }
-  if (input.defense < 1 || input.defense > 999) {
-    error.defense = "The value must be a number above 1 and below 1000";
-  }
-  if (input.speed < 1 || input.speed > 999) {
+  } else if (input.speed < 1 || input.speed > 999) {
     error.speed = "The value must be a number above 1 and below 1000";
-  }
-  if (!input.types || input.types.length > 2) {
+  } else if (input.defense < 1 || input.defense > 999) {
+    error.defense = "The value must be a number above 1 and below 1000";
+  } else if (input.types.length === 0 || input.types.length > 2) {
     error.types = "Select less than two types and at least one type";
+  } else {
+    alert("Now you can create your poke-pal");
   }
   return error;
 }
 const Creator = () => {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.types);
-  // eslint-disable-next-line no-unused-vars
   const navi = useNavigate();
   let [error, setError] = useState({});
   let [input, setInput] = useState({
@@ -53,13 +48,22 @@ const Creator = () => {
     dispatch(getTypes());
   }, [dispatch]);
 
+  function handleClick() {
+    navi(-1);
+  }
+  // function handleDeletePoke(e) {
+  //   dispatch(deleteById(input));
+  //   alert("You deleted a pokemon");
+  //   navi("/home");
+  // }
+
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
     setError(validateForms({ ...input, [e.target.name]: e.target.value }));
   }
 
   function handleSubmit(e) {
-    !error ? alert("WELL DONE") : alert("OOPS");
+    alert("WELL DONE");
     e.preventDefault(e);
     dispatch(createPoke(input));
     setInput({
@@ -90,9 +94,9 @@ const Creator = () => {
 
   if (types.length) {
     return (
-      <div>
-        <h1> POKE-CREATION:</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+      <div id="formContainer">
+        <h1 id="cH1"> POKE-CREATION: </h1>
+        <form id="dForm" onSubmit={(e) => handleSubmit(e)}>
           <div>
             <label>
               Name:
@@ -102,8 +106,8 @@ const Creator = () => {
                 value={input.name}
                 onChange={(e) => handleChange(e)}
               />
-              {error.name && <p>{error.name}</p>}
             </label>
+            {error.name && <p>{error.name}</p>}
           </div>
           <div>
             <label>
@@ -141,6 +145,16 @@ const Creator = () => {
               {error.height && <p>{error.height} </p>}
             </label>
           </div>
+          <label>
+            Weight:
+            <input
+              type="number"
+              value={input.weight}
+              name="weight"
+              onChange={(e) => handleChange(e)}
+            />
+            {error.weight && <p>{error.weight} </p>}
+          </label>
           <div>
             <label>
               Speed:
@@ -153,7 +167,7 @@ const Creator = () => {
               {error.speed && <p>{error.speed} </p>}
             </label>
           </div>
-          <div>
+          <div id="defDiv">
             <label>
               Defense:
               <input
@@ -167,26 +181,39 @@ const Creator = () => {
           </div>
           <label>
             Types:
-            <select onChange={(e) => handleSelect(e)}>
-              <option value="">Types</option>
+            <select id="selTypes" onChange={(e) => handleSelect(e)}>
+              <option id="nuli" value="">
+                -
+              </option>
               {types?.map((el) => (
-                <option value={el.name}>{el.name}</option>
+                <option id={el.id} value={el.name}>
+                  {el.name}
+                </option>
               ))}
             </select>
-            <ul>
-              {input.types?.map((el) => (
-                <div>
-                  <button onClick={() => handleDelete(el)}>x</button>
-                  <p>{el}</p>
-                </div>
-              ))}
-            </ul>
             {error.types && <p>{error.types} </p>}
           </label>
-          <button type="submit">CREATE</button>
+          <button
+            id="butCreate"
+            disabled={Object.keys(error).length}
+            onClick={handleClick}
+            type="submit"
+          >
+            CREATE
+          </button>
         </form>
+        <ul id="uList">
+          {input.types?.map((el) => (
+            <div id="divDel">
+              <button id="Del" onClick={() => handleDelete(el)}>
+                x
+              </button>
+              <p id={el.id}>{el}</p>
+            </div>
+          ))}
+        </ul>
         <Link to="/home">
-          <button>RUN</button>
+          <button id="RUN2">RUN</button>
         </Link>
       </div>
     );
