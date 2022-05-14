@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getQPokes } from "../Redux/actions";
-import "./Styles/Searchbar.css"
+import "./Styles/Searchbar.css";
 
 const Searchbar = () => {
   let dispatch = useDispatch();
