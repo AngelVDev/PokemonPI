@@ -18,8 +18,9 @@ router.get("/pokemons", async (req, res) => {
     } else {
       res.status(200).json(info);
     }
-  } catch (err) {
-    res.send(err);
+  } catch (error) {
+    res.status(500).send(error);
+    console.log(error);
   }
 });
 router.get("/pokemons/:id", async (req, res) => {
@@ -35,8 +36,9 @@ router.get("/pokemons/:id", async (req, res) => {
       const pokeId = info.find((element) => `${element.id}` === id);
       pokeId ? res.status(200).json(pokeId) : res.status(404).send("Not found");
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(500).send(error);
+    console.log(error);
   }
 });
 router.post("/pokemons", async (req, res) => {
@@ -55,6 +57,17 @@ router.post("/pokemons", async (req, res) => {
     await pokeNew.addType(typeDb);
     console.log(typeDb);
     res.status(201).json(pokeNew);
+  } catch (error) {
+    res.status(500).send(error);
+    console.log(error);
+  }
+});
+router.get("/:id/delete", async (req, res) => {
+  try {
+    await Pokemon.destroy({
+      where: { id: req.params.id },
+    });
+    return res.status(204).json({ msg: "Poke-destroyed" });
   } catch (error) {
     res.status(500).send(error);
     console.log(error);
