@@ -2,6 +2,11 @@
 .loader-wrapper {
     width: 60px;
     height: 60px;
+    background-color: rgba(63, 56, 56, 0.3);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
    }
    
    .loader {

@@ -1,10 +1,58 @@
 .Navi{
     font-family: 'Power Green';
     color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: aliceblue;
 }
 #Primary{
     background-image: url('https://images6.alphacoders.com/641/641430.jpg');
-    background-repeat: no-repeat;
+    background-repeat:space;
     background-size:cover;
-    background-position: bottom;
+    width: 100vw;
+    height: 100vh;
+    display: table;
+}
+#cardContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#butCreatHome{
+    border-radius: 8px;
+    color: black;
+    font-family: 'Power Green';
+    font-size: large;
+    font-weight: 900;
+    height: 4.5vh;
+    width: 6vw;
+    background-color: #d83d3d;
+    display: block;
+    text-decoration: none;
+}
+.sor{
+    border-radius: 8px;
+    color: black;
+    font-family: 'Power Green';
+    font-size: large;
+    font-weight: 900;
+    height: 4.5vh;
+    width: 6vw; 
+    background-color: #8cc277;
+    text-decoration: none;
+}
+.filt{
+    border-radius: 8px;
+    color: black;
+    font-size: large;
+    font-weight: 900;
+    font-family: 'Power Green';
+    height: 4.5vh;
+    width: 6vw;
+    background-color: #2eb3e7;
+
+    text-decoration: none;
 }

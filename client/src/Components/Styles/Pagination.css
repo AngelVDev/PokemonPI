@@ -3,14 +3,15 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  margin-top: 1.6em;
 }
 
 #Page {
   background: #ffcc13;
   font-family: 'Power Green';
   padding: 0.2em 0.8em;
-  font-weight: 500;
-  font-size: 1.2rem;
+  font-weight: 800;
+  font-size: 1.6rem;
   border: 1px solid black;
   border-radius: 0.4em;
   box-shadow: 0.1em 0.1em;

@@ -1,0 +1,54 @@
+#CARD{
+    display: flex;
+	align-items: center;
+	justify-content: center;
+    box-shadow: 0 0 10px rgba(black, 0.8);
+    font-family: "Power Green";
+    font-weight: bold;
+    background-color: rgb(90, 202, 90);
+    background-size: cover;
+}
+#idP{
+    width: 7vw;
+    height: 5vh;
+    background-color: rgb(212, 208, 208);
+    border-color: black;
+    border-radius: 7px;
+    display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#pokeStats{
+    height: 60vh;
+    background-color: rgb(214, 214, 214);
+    border-color: black;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+#pkPortrait{
+    max-width: 20%;
+    background-color: rgba(0, 0, 0, 0.089);
+    border-radius: 16px;
+}
+#RUN{
+    font-family: "Power Green";
+    width: 6vw;
+    height: 6vh;
+    font-weight: 700;
+    font-size: large;
+    margin-left: 3vw;
+    border-radius: 7px;
+}
+#pkH2name{
+    color: whitesmoke;
+    background-color: rgb(138, 183, 211);
+    border-radius: 8px;
+    height: 5.5vh;
+    width: fit-content;
+    border-color:black;
+}
