@@ -4,13 +4,13 @@ import "./Styles/Landing.css";
 
 const Landing = () => {
   return (
-    <div >
-    <div>
-      <h1>Welcome</h1>
-      <Link to="/home">
-        <button>Press START</button>
-      </Link>
-    </div>
+    <div id="landingContainer">
+      <div id="giantCard">
+        <h1>¿Run into tall grass?</h1>
+        <Link to="/home">
+          <button id="landingBut">YES</button>
+        </Link>
+      </div>
     </div>
   );
 };
